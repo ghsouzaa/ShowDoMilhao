@@ -16,6 +16,9 @@ namespace ShowDoMilhao
             InitializeComponent();
 
             btnIniciar.Margin = new Thickness(50, 0);
+            btnIniciar.Clicked += delegate {
+                Navigation.PushAsync(new Pergunta(true));
+            };
 
             btnSobre.Margin = new Thickness(50, 0);
             btnSobre.Clicked += delegate {
