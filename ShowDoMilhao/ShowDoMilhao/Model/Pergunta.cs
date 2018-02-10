@@ -39,12 +39,19 @@ namespace ShowDoMilhao.Model
             p1.AddAlternativa(new Alternativa("JOIN"));
             lista.Add(p1);
 
-            Pergunta p2 = new Pergunta("Sobre operadores de comparação em JavaScript, qual das alternativas tera o retorno como TRUE para uma variável x = 11.");
+            Pergunta p2 = new Pergunta("Sobre operadores de comparação em JavaScript, qual das alternativas tera o retorno como TRUE para uma variável x = 11?");
             p2.AddAlternativa(new Alternativa("x == “11”", true));
             p2.AddAlternativa(new Alternativa("x ===“11”"));
             p2.AddAlternativa(new Alternativa("x = 11"));
             p2.AddAlternativa(new Alternativa("x = “11”"));
             lista.Add(p2);
+
+            Pergunta p3 = new Pergunta("Qual das alternativas apresentam apenas barramentos de entrada e saída?");
+            p3.AddAlternativa(new Alternativa("PCI e MINI-DIN"));
+            p3.AddAlternativa(new Alternativa("DB9 e MINI-DIN", true));
+            p3.AddAlternativa(new Alternativa("DB9 e ISA"));
+            p3.AddAlternativa(new Alternativa("ISA e PCI"));
+            lista.Add(p3);
 
             return lista;
         }

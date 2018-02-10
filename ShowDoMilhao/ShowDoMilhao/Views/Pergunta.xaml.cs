@@ -27,7 +27,7 @@ namespace ShowDoMilhao.Views
                 Perguntas = new Model.Pergunta().CarregarPerguntas();
             }
 
-            PerguntaSelecionada = SelecionarUmaPergunta();
+            SelecionarUmaPergunta();
 
             Content = CriarLayout();
         }
@@ -69,9 +69,12 @@ namespace ShowDoMilhao.Views
             }
         }
 
-        public Model.Pergunta SelecionarUmaPergunta()
+        public void SelecionarUmaPergunta()
         {
-            return Perguntas[1];
+            Random random = new Random();
+            PerguntaSelecionada = Perguntas[random.Next(0, Perguntas.Count() - 1)];
+
+            Perguntas.Remove(PerguntaSelecionada);
         }
 
         public Button btnVoltar()
