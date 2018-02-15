@@ -63,7 +63,29 @@ namespace ShowDoMilhao.Views
                 stack.Children.Add(btnAlternativa);
             }
 
-            stack.Children.Add(btnVoltar());
+            stack.Children.Add(new Label()
+            {
+                ClassId = "lblAjuda",
+                Text = "Ajudas",
+                Margin = new Thickness(Elements.Elements.Margem((float)0.4), 0),
+                HorizontalOptions = LayoutOptions.CenterAndExpand
+            });
+
+            stack.Children.Add(
+                new StackLayout
+                {
+                    Spacing = 0,
+                    Orientation = StackOrientation.Horizontal,
+                    Children =
+                    {
+                        btnCartas(),
+                        btnSabios(),
+                        btnPular()
+                    }
+                }
+            );
+
+            stack.Children.Add(btnDesistir());
 
             return stack;
         }
@@ -104,12 +126,59 @@ namespace ShowDoMilhao.Views
             Navigation.PushAsync(new TelaFim(mensagem));
         }
 
-        public Button btnVoltar()
+        public Button btnDesistir()
         {
             Button btn = new Button();
             btn.Text = "Desistir";
-            btn.Margin = new Thickness(Elements.Elements.Margem(1), 0);
             btn.VerticalOptions = LayoutOptions.Center;
+            btn.HorizontalOptions = LayoutOptions.CenterAndExpand;
+            btn.BackgroundColor = new Color(180, 0, 0);
+            btn.TextColor = new Color(255, 255, 255);
+
+            btn.Clicked += delegate
+            {
+                Navigation.PopToRootAsync();
+            };
+
+            return btn;
+        }
+
+        public Button btnPular()
+        {
+            Button btn = new Button();
+            btn.Text = "Pular";
+            btn.VerticalOptions = LayoutOptions.Center;
+            btn.HorizontalOptions = LayoutOptions.CenterAndExpand;
+
+            btn.Clicked += delegate
+            {
+                Navigation.PopToRootAsync();
+            };
+
+            return btn;
+        }
+
+        public Button btnSabios()
+        {
+            Button btn = new Button();
+            btn.Text = "Sábios";
+            btn.VerticalOptions = LayoutOptions.Center;
+            btn.HorizontalOptions = LayoutOptions.CenterAndExpand;
+
+            btn.Clicked += delegate
+            {
+                Navigation.PopToRootAsync();
+            };
+
+            return btn;
+        }
+
+        public Button btnCartas()
+        {
+            Button btn = new Button();
+            btn.Text = "Cartas";
+            btn.VerticalOptions = LayoutOptions.Center;
+            btn.HorizontalOptions = LayoutOptions.CenterAndExpand;
 
             btn.Clicked += delegate
             {
