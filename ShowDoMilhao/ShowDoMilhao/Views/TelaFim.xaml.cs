@@ -32,7 +32,7 @@ namespace ShowDoMilhao.Views
                     Navigation.RemovePage(paginas[i]);
 
                 Navigation.RemovePage(Navigation.NavigationStack[Navigation.NavigationStack.Count - 1]);
-                Navigation.PushAsync(new Pergunta(new Model.Pergunta().CarregarPerguntas(), true));
+                Navigation.PushAsync(new Pergunta(new Model.Pergunta().CarregarPerguntas(), new Model.ConfiguracaoBotoes(), true));
             };
             btnNovamente.Margin = new Thickness(Elements.Elements.Margem((float)0.4), 0);
 

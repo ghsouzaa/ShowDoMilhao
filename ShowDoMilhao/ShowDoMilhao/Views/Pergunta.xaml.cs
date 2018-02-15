@@ -17,11 +17,13 @@ namespace ShowDoMilhao.Views
         private List<Model.Nivel> ListaNiveis = new Model.Nivel().CarregarNiveis();
         private List<Model.Pergunta> Perguntas;
         private Model.Pergunta PerguntaSelecionada;
+        private Model.ConfiguracaoBotoes ConfiguracaoBotoes;
 
-        public Pergunta(List<Model.Pergunta> perguntas, bool NovoJogo = false, int nivelAtual = 0)
+        public Pergunta(List<Model.Pergunta> perguntas, Model.ConfiguracaoBotoes config, bool NovoJogo = false, int nivelAtual = 0)
         {
             NavigationPage.SetHasNavigationBar(this, false);
             Perguntas = perguntas;
+            ConfiguracaoBotoes = config;
             if (NovoJogo)
                 NivelAtual = 0;
             else
@@ -97,13 +99,13 @@ namespace ShowDoMilhao.Views
             {
                 if (respostaCerta)
                 {
-                    if (NivelAtual != 3)
+                    if (NivelAtual != 2)
                         ProximaPergunta();
                     else
                         TelaFim("Parabéns, você conseguiu R$ 1.000.000 em barras de ouro!");
                 }
                 else
-                    TelaFim("Resposta errada. Você conseguiu " + ListaNiveis[NivelAtual].ValorErrar + ".");
+                    TelaFim("Resposta errada. Você conseguiu " + ListaNiveis[NivelAtual].ValorErrar);
             }
         }
 
@@ -118,7 +120,17 @@ namespace ShowDoMilhao.Views
 
         public void ProximaPergunta()
         {
-            Navigation.PushAsync(new Pergunta(Perguntas, false, NivelAtual));
+            Navigation.PushAsync(new Pergunta(Perguntas, ConfiguracaoBotoes, false, NivelAtual));
+        }
+
+        async void PularPergunta()
+        {
+            var resposta = await DisplayAlert("Realmente deseja pular a pergunta?", "", "Sim", "Não");
+            if (resposta)
+            {
+                ConfiguracaoBotoes.PulouPergunta = true;
+                await Navigation.PushAsync(new Pergunta(Perguntas, ConfiguracaoBotoes, false, NivelAtual - 1));
+            }
         }
 
         public void TelaFim(string mensagem)
@@ -137,7 +149,7 @@ namespace ShowDoMilhao.Views
 
             btn.Clicked += delegate
             {
-                Navigation.PopToRootAsync();
+                Navigation.PushAsync(new TelaFim("Você desistiu e faturou " + ListaNiveis[NivelAtual].Valor));
             };
 
             return btn;
@@ -150,10 +162,17 @@ namespace ShowDoMilhao.Views
             btn.VerticalOptions = LayoutOptions.Center;
             btn.HorizontalOptions = LayoutOptions.CenterAndExpand;
 
-            btn.Clicked += delegate
+            if (ConfiguracaoBotoes.PulouPergunta)
             {
-                Navigation.PopToRootAsync();
-            };
+                btn.IsEnabled = false;
+            }
+            else
+            {
+                btn.Clicked += delegate
+                {
+                    PularPergunta();
+                };
+            }
 
             return btn;
         }
