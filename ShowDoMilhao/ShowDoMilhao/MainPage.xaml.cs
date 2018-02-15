@@ -17,7 +17,7 @@ namespace ShowDoMilhao
 
             btnIniciar.Margin = new Thickness(50, 0);
             btnIniciar.Clicked += delegate {
-                Navigation.PushAsync(new Pergunta(true));
+                Navigation.PushAsync(new Pergunta(new Model.Pergunta().CarregarPerguntas(), true));
             };
 
             btnSobre.Margin = new Thickness(50, 0);
