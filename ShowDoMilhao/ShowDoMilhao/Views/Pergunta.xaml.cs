@@ -18,6 +18,7 @@ namespace ShowDoMilhao.Views
         private List<Model.Pergunta> Perguntas;
         private Model.Pergunta PerguntaSelecionada;
         private Model.ConfiguracaoBotoes ConfiguracaoBotoes;
+        private string RespostaCorreta = "";
 
         public Pergunta(List<Model.Pergunta> perguntas, Model.ConfiguracaoBotoes config, bool NovoJogo = false, int nivelAtual = 0)
         {
@@ -92,6 +93,8 @@ namespace ShowDoMilhao.Views
             return stack;
         }
 
+        #region Eventos
+
         async void VoceEstaCerto(bool respostaCerta)
         {
             var resposta = await DisplayAlert("Você está certo disso?", "", "Sim", "Não");
@@ -133,10 +136,39 @@ namespace ShowDoMilhao.Views
             }
         }
 
+        async void ConsultarSabios()
+        {
+            if (RespostaCorreta == "")
+            {
+                var resposta = await DisplayAlert("Realmente deseja consultar os sábios?", "", "Sim", "Não");
+                if (resposta)
+                {
+                    ConfiguracaoBotoes.ConsultouSabios = true;
+
+                    Random rd = new Random();
+                    var percent = rd.Next(0, 100);
+                    if (percent <= 90)
+                        RespostaCorreta = PerguntaSelecionada.Alternativas.FirstOrDefault(x => x.Correta).Resposta;
+                    else
+                        RespostaCorreta = PerguntaSelecionada.Alternativas.Where(x => x.Correta != true).FirstOrDefault().Resposta;
+
+                    await DisplayAlert("Os sábios responderam:", RespostaCorreta, "OK");
+                }
+            }
+            else
+            {
+                await DisplayAlert("Os sábios responderam:", RespostaCorreta, "OK");
+            }
+        }
+
         public void TelaFim(string mensagem)
         {
             Navigation.PushAsync(new TelaFim(mensagem));
         }
+
+        #endregion
+
+        #region Botões
 
         public Button btnDesistir()
         {
@@ -162,17 +194,10 @@ namespace ShowDoMilhao.Views
             btn.VerticalOptions = LayoutOptions.Center;
             btn.HorizontalOptions = LayoutOptions.CenterAndExpand;
 
+            btn.Clicked += delegate { PularPergunta(); };
+
             if (ConfiguracaoBotoes.PulouPergunta)
-            {
                 btn.IsEnabled = false;
-            }
-            else
-            {
-                btn.Clicked += delegate
-                {
-                    PularPergunta();
-                };
-            }
 
             return btn;
         }
@@ -184,10 +209,10 @@ namespace ShowDoMilhao.Views
             btn.VerticalOptions = LayoutOptions.Center;
             btn.HorizontalOptions = LayoutOptions.CenterAndExpand;
 
-            btn.Clicked += delegate
-            {
-                Navigation.PopToRootAsync();
-            };
+            btn.Clicked += delegate { ConsultarSabios(); };
+
+            if (ConfiguracaoBotoes.ConsultouSabios)
+                btn.IsEnabled = false;
 
             return btn;
         }
@@ -199,12 +224,14 @@ namespace ShowDoMilhao.Views
             btn.VerticalOptions = LayoutOptions.Center;
             btn.HorizontalOptions = LayoutOptions.CenterAndExpand;
 
-            btn.Clicked += delegate
-            {
-                Navigation.PopToRootAsync();
-            };
+            btn.Clicked += delegate { Navigation.PopToRootAsync(); };
+
+            if (ConfiguracaoBotoes.UsouCartas)
+                btn.IsEnabled = false;
 
             return btn;
         }
+
+        #endregion
     }
 }
