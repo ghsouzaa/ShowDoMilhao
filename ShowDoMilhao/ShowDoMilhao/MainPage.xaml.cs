@@ -10,7 +10,12 @@ namespace ShowDoMilhao
 {
 	public partial class MainPage : ContentPage
 	{
-		public MainPage()
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
+        }
+
+        public MainPage()
 		{
             NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent();

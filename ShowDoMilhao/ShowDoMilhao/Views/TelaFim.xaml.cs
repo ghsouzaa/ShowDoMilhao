@@ -12,7 +12,12 @@ namespace ShowDoMilhao.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class TelaFim : ContentPage
 	{
-		public TelaFim (string mensagem)
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
+        }
+
+        public TelaFim (string mensagem)
 		{
             NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent ();

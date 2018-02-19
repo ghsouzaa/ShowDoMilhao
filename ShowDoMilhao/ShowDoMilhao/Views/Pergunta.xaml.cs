@@ -13,12 +13,18 @@ namespace ShowDoMilhao.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Pergunta : ContentPage
     {
+        private int ultimoNivel = 15;
         private int NivelAtual;
         private List<Model.Nivel> ListaNiveis = new Model.Nivel().CarregarNiveis();
         private List<Model.Pergunta> Perguntas;
         private Model.Pergunta PerguntaSelecionada;
         private Model.ConfiguracaoBotoes ConfiguracaoBotoes;
         private string RespostaCorreta = "";
+
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
+        }
 
         public Pergunta(List<Model.Pergunta> perguntas, Model.ConfiguracaoBotoes config, bool NovoJogo = false, int nivelAtual = 0)
         {
@@ -35,25 +41,48 @@ namespace ShowDoMilhao.Views
             Content = CriarLayout();
         }
 
+        public Pergunta(List<Model.Pergunta> perguntas, Model.ConfiguracaoBotoes config, Model.Pergunta jaSelecionada, int nivelAtual = 0)
+        {
+            NavigationPage.SetHasNavigationBar(this, false);
+            Perguntas = perguntas;
+            ConfiguracaoBotoes = config;
+            NivelAtual = nivelAtual;
+
+            PerguntaSelecionada = jaSelecionada;
+
+            Content = CriarLayout();
+        }
+
         public StackLayout CriarLayout()
         {
             StackLayout stack = new StackLayout();
+            stack.BackgroundColor = Color.FromRgb(7,34,61);
             stack.HorizontalOptions = LayoutOptions.Center;
             stack.Children.Add(Elements.Elements.imgShowDoMilhaoHeader());
 
+            stack.Children.Add(new ScrollView { Content = LayoutParcial() });
+
+            return stack;
+        }
+
+        public StackLayout LayoutParcial()
+        {
+            StackLayout stack = new StackLayout();
 
             stack.Children.Add(new Label
             {
                 ClassId = "lblNivel",
                 Text = "Está pergunta vale: " + ListaNiveis[NivelAtual].Valor,
-                Margin = new Thickness(Elements.Elements.Margem((float)0.4), 0)
+                Margin = new Thickness(Elements.Elements.Margem((float)0.4), 0),
+                TextColor = Color.White
             });
 
             stack.Children.Add(new Label
             {
                 ClassId = "lblEnunciado",
                 Text = PerguntaSelecionada.Enunciado,
-                Margin = new Thickness(Elements.Elements.Margem((float)0.4), 0)
+                Margin = new Thickness(Elements.Elements.Margem((float)0.4), 0),
+                TextColor = Color.White
             });
 
             foreach (var item in PerguntaSelecionada.Alternativas)
@@ -62,6 +91,8 @@ namespace ShowDoMilhao.Views
                 btnAlternativa.Text = item.Resposta;
                 btnAlternativa.Margin = new Thickness(Elements.Elements.Margem(1), 0);
                 btnAlternativa.Clicked += delegate { VoceEstaCerto(item.Correta); };
+                if (!item.Disponivel)
+                    btnAlternativa.IsEnabled = false;
 
                 stack.Children.Add(btnAlternativa);
             }
@@ -71,7 +102,8 @@ namespace ShowDoMilhao.Views
                 ClassId = "lblAjuda",
                 Text = "Ajudas",
                 Margin = new Thickness(Elements.Elements.Margem((float)0.4), 0),
-                HorizontalOptions = LayoutOptions.CenterAndExpand
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
+                TextColor = Color.White
             });
 
             stack.Children.Add(
@@ -89,7 +121,6 @@ namespace ShowDoMilhao.Views
             );
 
             stack.Children.Add(btnDesistir());
-
             return stack;
         }
 
@@ -102,8 +133,11 @@ namespace ShowDoMilhao.Views
             {
                 if (respostaCerta)
                 {
-                    if (NivelAtual != 2)
+                    if (NivelAtual != 15)
+                    {
+                        await DisplayAlert("Certa a resposta!", "Próximo pergunta valendo " + ListaNiveis[NivelAtual + 1].Valor, "OK");
                         ProximaPergunta();
+                    }
                     else
                         TelaFim("Parabéns, você conseguiu R$ 1.000.000 em barras de ouro!");
                 }
@@ -152,12 +186,30 @@ namespace ShowDoMilhao.Views
                     else
                         RespostaCorreta = PerguntaSelecionada.Alternativas.Where(x => x.Correta != true).FirstOrDefault().Resposta;
 
-                    await DisplayAlert("Os sábios responderam:", RespostaCorreta, "OK");
+                    await DisplayAlert("Os sábios responderam:", RespostaCorreta.ToUpper(), "OK");
                 }
             }
             else
             {
-                await DisplayAlert("Os sábios responderam:", RespostaCorreta, "OK");
+                await DisplayAlert("Os sábios responderam:", RespostaCorreta.ToUpper(), "OK");
+            }
+        }
+
+        async void Desistir()
+        {
+            var resposta = await DisplayAlert("Você receberá " + ListaNiveis[NivelAtual].ValorParar + " se desistir agora. Deseja desistir?", "", "Sim", "Não");
+            if (resposta)
+            {
+                await Navigation.PushAsync(new TelaFim("Você desistiu e faturou " + ListaNiveis[NivelAtual].ValorParar));
+            }
+        }
+
+        async void Cartas()
+        {
+            var resposta = await DisplayAlert("Tem certeza que deseja usar as cartas?", "", "Sim", "Não");
+            if (resposta)
+            {
+                await Navigation.PushAsync(new Cartas(NivelAtual, Perguntas, PerguntaSelecionada, ConfiguracaoBotoes));
             }
         }
 
@@ -179,10 +231,7 @@ namespace ShowDoMilhao.Views
             btn.BackgroundColor = new Color(180, 0, 0);
             btn.TextColor = new Color(255, 255, 255);
 
-            btn.Clicked += delegate
-            {
-                Navigation.PushAsync(new TelaFim("Você desistiu e faturou " + ListaNiveis[NivelAtual].Valor));
-            };
+            btn.Clicked += delegate { Desistir(); };
 
             return btn;
         }
@@ -196,7 +245,7 @@ namespace ShowDoMilhao.Views
 
             btn.Clicked += delegate { PularPergunta(); };
 
-            if (ConfiguracaoBotoes.PulouPergunta)
+            if (ConfiguracaoBotoes.PulouPergunta || NivelAtual == ultimoNivel)
                 btn.IsEnabled = false;
 
             return btn;
@@ -211,7 +260,7 @@ namespace ShowDoMilhao.Views
 
             btn.Clicked += delegate { ConsultarSabios(); };
 
-            if (ConfiguracaoBotoes.ConsultouSabios)
+            if (ConfiguracaoBotoes.ConsultouSabios || NivelAtual == ultimoNivel)
                 btn.IsEnabled = false;
 
             return btn;
@@ -224,9 +273,9 @@ namespace ShowDoMilhao.Views
             btn.VerticalOptions = LayoutOptions.Center;
             btn.HorizontalOptions = LayoutOptions.CenterAndExpand;
 
-            btn.Clicked += delegate { Navigation.PopToRootAsync(); };
+            btn.Clicked += delegate { Cartas(); };
 
-            if (ConfiguracaoBotoes.UsouCartas)
+            if (ConfiguracaoBotoes.UsouCartas || NivelAtual == ultimoNivel)
                 btn.IsEnabled = false;
 
             return btn;

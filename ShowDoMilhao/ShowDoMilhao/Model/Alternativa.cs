@@ -8,11 +8,13 @@ namespace ShowDoMilhao.Model
     {
         public string Resposta { get; set; }
         public bool Correta { get; set; }
+        public bool Disponivel { get; set; }
 
         public Alternativa(string resposta, bool correta = false)
         {
             Resposta = resposta;
             Correta = correta;
+            Disponivel = true;
         }
     }
 }
