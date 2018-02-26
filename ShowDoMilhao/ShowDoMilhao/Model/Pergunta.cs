@@ -241,7 +241,146 @@ namespace ShowDoMilhao.Model
             p30.AddAlternativa(new Alternativa("126"));
             p30.AddAlternativa(new Alternativa("60"));
             lista.Add(p30);
-            
+
+            Pergunta p31 = new Pergunta("Qual das alternativa que apresenta o padrão mais indicado para obter uma maior segurança em redes 802.11?");
+            p31.AddAlternativa(new Alternativa("WPA"));
+            p31.AddAlternativa(new Alternativa("TKIP"));
+            p31.AddAlternativa(new Alternativa("WPA2", true));
+            p31.AddAlternativa(new Alternativa("WEP"));
+            lista.Add(p31);
+
+            Pergunta p32 = new Pergunta("Qual dos seguintes protocolos de segurança de redes 802.11 utiliza o algoritmo de criptografía simétrica AES com chave de 128 bits?");
+            p32.AddAlternativa(new Alternativa("RC4"));
+            p32.AddAlternativa(new Alternativa("WEP"));
+            p32.AddAlternativa(new Alternativa("RSA"));
+            p32.AddAlternativa(new Alternativa("WPA2", true));
+            lista.Add(p32);
+
+            Pergunta p33 = new Pergunta("Quais são os dois modos de operação de rede sem fio(802.11)?");
+            p33.AddAlternativa(new Alternativa("RTS e CTS"));
+            p33.AddAlternativa(new Alternativa("Infraestrutura e Ad hoc", true));
+            p33.AddAlternativa(new Alternativa("ESS e BSS"));
+            p33.AddAlternativa(new Alternativa("CSMA/CA e CSMA/CD"));
+            lista.Add(p33);
+
+            Pergunta p34 = new Pergunta("Qual é a nomenclatura adotada que define um conjunto de dispositivos formado pela união de vários BSSs conectados por um sistema de distribuição?");
+            p34.AddAlternativa(new Alternativa("ESS", true));
+            p34.AddAlternativa(new Alternativa("BSSID"));
+            p34.AddAlternativa(new Alternativa("ESSID"));
+            p34.AddAlternativa(new Alternativa("SSID"));
+            lista.Add(p34);
+
+            Pergunta p35 = new Pergunta("Qual o significado da sigla P2P?");
+            p35.AddAlternativa(new Alternativa("PHP"));
+            p35.AddAlternativa(new Alternativa("Peer-to-peer", true));
+            p35.AddAlternativa(new Alternativa("PowerPoint"));
+            p35.AddAlternativa(new Alternativa("Ponto de Acesso"));
+            lista.Add(p35);
+
+            Pergunta p36 = new Pergunta("Quando um navegador de Internet comunica com servidores Web, através do endereço www, o pedido dos arquivos web é efetuado por qual protocolo(s)?");
+            p36.AddAlternativa(new Alternativa("IMAP"));
+            p36.AddAlternativa(new Alternativa("SMTP e FTP"));
+            p36.AddAlternativa(new Alternativa("HTTP", true));
+            p36.AddAlternativa(new Alternativa("IRC"));
+            lista.Add(p36);
+
+            Pergunta p37 = new Pergunta("Qual dispositivo serve como filtro de pacotes, regulando o tráfego de dados que entram e saem da rede?");
+            p37.AddAlternativa(new Alternativa("IDS"));
+            p37.AddAlternativa(new Alternativa("IPS"));
+            p37.AddAlternativa(new Alternativa("FIREWALL", true));
+            p37.AddAlternativa(new Alternativa("ANTIVÍRUS"));
+            lista.Add(p37);
+
+            Pergunta p38 = new Pergunta("Quais teclas são utilizadas como atalho para selecionar tudo no Word?");
+            p38.AddAlternativa(new Alternativa("CTRL+T", true));
+            p38.AddAlternativa(new Alternativa("CTRL+L"));
+            p38.AddAlternativa(new Alternativa("CTRL+X"));
+            p38.AddAlternativa(new Alternativa("CTRL+C"));
+            lista.Add(p38);
+
+            Pergunta p39 = new Pergunta("Qual o comando utilizado no Linux para listar o diretório corrente?");
+            p39.AddAlternativa(new Alternativa("RM"));
+            p39.AddAlternativa(new Alternativa("MKDIR", true));
+            p39.AddAlternativa(new Alternativa("SHUTDOWN -R"));
+            p39.AddAlternativa(new Alternativa("LS"));
+            lista.Add(p39);
+
+            Pergunta p40 = new Pergunta("Diversos modelos de barramento tais como ISA e PCI, por exemplo, são, disponibilizados na placa mãe dos microcomputadores por meio de conectores chamados de?");
+            p40.AddAlternativa(new Alternativa("BIOS"));
+            p40.AddAlternativa(new Alternativa("USB"));
+            p40.AddAlternativa(new Alternativa("SLOTS", true));
+            p40.AddAlternativa(new Alternativa("CMOS"));
+            lista.Add(p40);
+
+            Pergunta p41 = new Pergunta("Qual equipamento que permite efetuar comunicação de dados por intermédio de uma linha telefônica?");
+            p41.AddAlternativa(new Alternativa("CD-ROM"));
+            p41.AddAlternativa(new Alternativa("CPU"));
+            p41.AddAlternativa(new Alternativa("HardDisk"));
+            p41.AddAlternativa(new Alternativa("MODEM", true));
+            lista.Add(p41);
+
+            Pergunta p42 = new Pergunta("Como é chamado o núcleo de um sistema operacional?");
+            p42.AddAlternativa(new Alternativa("SHELL"));
+            p42.AddAlternativa(new Alternativa("KERNEL", true));
+            p42.AddAlternativa(new Alternativa("TELNET"));
+            p42.AddAlternativa(new Alternativa("DOS"));
+            lista.Add(p42);
+
+            Pergunta p43 = new Pergunta("Quais são os principais protocolos da camada de Transporte?");
+            p43.AddAlternativa(new Alternativa("IP E TCP"));
+            p43.AddAlternativa(new Alternativa("TCP E UDP", true));
+            p43.AddAlternativa(new Alternativa("HTTP E SMTP"));
+            p43.AddAlternativa(new Alternativa("HTTP E SMTP"));
+            lista.Add(p43);
+
+            Pergunta p44 = new Pergunta("Em quantas camadas se divide o modelo de referência OSI?");
+            p44.AddAlternativa(new Alternativa("4"));
+            p44.AddAlternativa(new Alternativa("5"));
+            p44.AddAlternativa(new Alternativa("6"));
+            p44.AddAlternativa(new Alternativa("7", true));
+            lista.Add(p44);
+
+            Pergunta p45 = new Pergunta("Steve Jobs fundou a Apple junto com:");
+            p45.AddAlternativa(new Alternativa("Lary Page"));
+            p45.AddAlternativa(new Alternativa("Bill Gates"));
+            p45.AddAlternativa(new Alternativa("Steve Wozniack", true));
+            p45.AddAlternativa(new Alternativa("Mark Zuckerberg"));
+            lista.Add(p45);
+
+            Pergunta p46 = new Pergunta("São extensões usadas em formatos de video?");
+            p46.AddAlternativa(new Alternativa(".RMVB/.AVI/.MOV", true));
+            p46.AddAlternativa(new Alternativa(".MP3/.WMA/.WAVE"));
+            p46.AddAlternativa(new Alternativa(".AVI/.MPG/.JPG"));
+            p46.AddAlternativa(new Alternativa(".DVD/.EXE/.AVI"));
+            lista.Add(p46);
+
+            Pergunta p47 = new Pergunta("Qual dessas formas de armazenamento é considerada volátil?");
+            p47.AddAlternativa(new Alternativa("HD"));
+            p47.AddAlternativa(new Alternativa("SSD"));
+            p47.AddAlternativa(new Alternativa("CD"));
+            p47.AddAlternativa(new Alternativa("RAM", true));
+            lista.Add(p47);
+
+            Pergunta p48 = new Pergunta("Qual das seguintes variáveis só aceita números inteiros?");
+            p48.AddAlternativa(new Alternativa("String"));
+            p48.AddAlternativa(new Alternativa("Long"));
+            p48.AddAlternativa(new Alternativa("Integer", true));
+            p48.AddAlternativa(new Alternativa("Double"));
+            lista.Add(p48);
+
+            Pergunta p49 = new Pergunta("Protocolo responsável por identificar endereçamento ip através de domínios?");
+            p49.AddAlternativa(new Alternativa("DNS", true));
+            p49.AddAlternativa(new Alternativa("OSI"));
+            p49.AddAlternativa(new Alternativa("FTP"));
+            p49.AddAlternativa(new Alternativa("VPN"));
+            lista.Add(p49);
+
+            Pergunta p50 = new Pergunta("O Byte é formado por quantos bits?");
+            p50.AddAlternativa(new Alternativa("2"));
+            p50.AddAlternativa(new Alternativa("4"));
+            p50.AddAlternativa(new Alternativa("6"));
+            p50.AddAlternativa(new Alternativa("8", true));
+            lista.Add(p50);
 
             return lista;
         }
