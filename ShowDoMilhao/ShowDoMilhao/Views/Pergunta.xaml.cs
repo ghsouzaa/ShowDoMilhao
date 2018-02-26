@@ -149,7 +149,7 @@ namespace ShowDoMilhao.Views
         public void SelecionarUmaPergunta()
         {
             Random random = new Random();
-            var num = random.Next(0, (Perguntas.Count() - 1));
+            var num = random.Next(0, (Perguntas.Count()));
             PerguntaSelecionada = Perguntas[num];
 
             Perguntas.Remove(PerguntaSelecionada);

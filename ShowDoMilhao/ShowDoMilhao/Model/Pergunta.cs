@@ -182,7 +182,7 @@ namespace ShowDoMilhao.Model
             Pergunta p22 = new Pergunta("É um dos principais softwares aplicativos dos sistemas operacionais e utilizado para acessar a Internet, a exemplo de Internet Explorer, Chrome, Safari e Mozilla Firefox: ");
             p22.AddAlternativa(new Alternativa("Editor de textos"));
             p22.AddAlternativa(new Alternativa("Planilha eletrônica"));
-            p22.AddAlternativa(new Alternativa("Navegador de internet.", true));
+            p22.AddAlternativa(new Alternativa("Navegador de internet", true));
             p22.AddAlternativa(new Alternativa("Correio eletrônico"));
             lista.Add(p22);
 

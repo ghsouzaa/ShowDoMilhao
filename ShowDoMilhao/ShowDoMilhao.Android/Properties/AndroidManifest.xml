@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="ShowDoMilhao.ShowDoMilhao" android:installLocation="auto">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.1" package="Show_do_Milh_o_TI.Show_do_Milh_o_TI" android:installLocation="auto">
 	<uses-sdk android:minSdkVersion="15" />
-	<application android:label="Show do Milhão" android:icon="@drawable/icon"></application>
+	<application android:label="Show do Milhão TI" android:icon="@drawable/icon"></application>
 </manifest>
